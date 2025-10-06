@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CFA Practice</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+
+    <!-- Left Column: Ads -->
+    <aside class="ads">
+      <h3>Advertisement</h3>
+      <div class="ad-box">Ad space</div>
+    </aside>
+
+    <!-- Center Column: Question -->
+    <main class="quiz">
+      <h2>{{ question.question }}</h2>
+      <ul>
+        {% for choice in question.choices %}
+          <li>
+            <button onclick="showAnswer({{ loop.index0 }})">{{ choice }}</button>
+          </li>
+        {% endfor %}
+      </ul>
+      <div id="timer">30</div>
+    </main>
+
+    <!-- Right Column: Answer/Explanation -->
+    <aside class="explanation">
+      <h3>Explanation</h3>
+      <p id="explanation-text" style="display:none;">{{ question.explanation }}</p>
+    </aside>
+
+  </div>
+
+  <script>
+    const correctAnswer = {{ question.answer }};
+    function showAnswer(selected) {
+      const explanation = document.getElementById("explanation-text");
+      if (selected === correctAnswer) {
+        explanation.innerHTML = "✅ Correct! " + explanation.innerHTML;
+      } else {
+        explanation.innerHTML = "❌ Wrong. " + explanation.innerHTML;
+      }
+      explanation.style.display = "block";
+    }
+
+    // simple timer
+    let time = 30;
+    const timerElement = document.getElementById("timer");
+    const timer = setInterval(() => {
+      time--;
+      timerElement.innerText = time;
+      if (time <= 0) clearInterval(timer);
+    }, 1000);
+  </script>
+</body>
+</html>

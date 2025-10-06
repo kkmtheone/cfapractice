@@ -1,0 +1,36 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 20% 55% 25%;
+  height: 100vh;
+}
+
+.ads {
+  background: #f9f9f9;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.quiz {
+  padding: 20px;
+}
+
+.explanation {
+  background: #f1f1f1;
+  padding: 10px;
+  border-left: 1px solid #ddd;
+}
+
+.ad-box {
+  width: 100%;
+  height: 250px;
+  background: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
