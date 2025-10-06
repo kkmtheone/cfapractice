@@ -1,8 +1,13 @@
+import { useRouter } from "next/router";
+
 export default function PracticePage() {
+  const router = useRouter();
+  const { topic } = router.query;
+
   return (
     <div>
       <h1>Practice Page</h1>
-      <p>This will render practice questions by topic.</p>
+      <p>Topic: {topic}</p>
     </div>
   );
 }
