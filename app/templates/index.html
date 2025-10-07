@@ -6,6 +6,37 @@
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+  <!-- Top Row: Filters -->
+  <header class="top-bar">
+    <form id="filter-form" method="get" action="/">
+      <label for="level">Level:</label>
+      <select name="level" id="level">
+        <option value="">All</option>
+        <option value="I">Level I</option>
+        <option value="II">Level II</option>
+        <option value="III">Level III</option>
+      </select>
+
+      <label for="topic">Topic:</label>
+      <select name="topic" id="topic">
+        <option value="">All</option>
+        <option value="Ethics">Ethics</option>
+        <option value="Quantitative Methods">Quantitative Methods</option>
+        <option value="Economics">Economics</option>
+        <option value="Financial Reporting">Financial Reporting</option>
+        <option value="Corporate Finance">Corporate Finance</option>
+        <option value="Equity">Equity</option>
+        <option value="Fixed Income">Fixed Income</option>
+        <option value="Derivatives">Derivatives</option>
+        <option value="Alternative Investments">Alternative Investments</option>
+        <option value="Portfolio Management">Portfolio Management</option>
+      </select>
+
+      <button type="submit">Apply</button>
+      <button type="button" id="next-btn">Next Question</button>
+    </form>
+  </header>
+
   <div class="container">
 
     <!-- Left Column: Ads -->
@@ -20,7 +51,7 @@
       <ul>
         {% for choice in question.choices %}
           <li>
-            <button onclick="showAnswer({{ loop.index0 }})">{{ choice }}</button>
+            <button onclick="showAnswer('{{ loop.index0 | tojson | safe }}')">{{ choice }}</button>
           </li>
         {% endfor %}
       </ul>
@@ -36,7 +67,7 @@
   </div>
 
   <script>
-    const correctAnswer = {{ question.answer }};
+  const correctAnswer = {{ question.answer | default(None) | tojson | safe }};
     function showAnswer(selected) {
       const explanation = document.getElementById("explanation-text");
       if (selected === correctAnswer) {
@@ -47,7 +78,7 @@
       explanation.style.display = "block";
     }
 
-    // simple timer
+    // Timer
     let time = 30;
     const timerElement = document.getElementById("timer");
     const timer = setInterval(() => {
@@ -55,6 +86,11 @@
       timerElement.innerText = time;
       if (time <= 0) clearInterval(timer);
     }, 1000);
+
+    // "Next Question" reload
+    document.getElementById("next-btn").addEventListener("click", () => {
+      window.location.reload();
+    });
   </script>
 </body>
 </html>
